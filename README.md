@@ -106,7 +106,7 @@ MySQL Database
 ## Project Structure
 
 ```
-CTAP
+cyberportal
 │
 ├── frontend
 │   ├── index.html
