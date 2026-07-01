@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CTAP — Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-page="dashboard">
+
+  <!-- Navbar -->
+  <nav class="cyber-nav navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="dashboard.html">
+        🛡 CT<span>AP</span>
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav-menu">
+        <span style="color:var(--accent-blue);font-size:1.4rem;">☰</span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav-menu">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+          <li class="nav-item"><a class="nav-link active" href="dashboard.html">Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="detect.html">Detect</a></li>
+          <li class="nav-item"><a class="nav-link" href="threat.html">Threats</a></li>
+          <li class="nav-item"><a class="nav-link" href="quiz.html">Quiz</a></li>
+          <li class="nav-item ms-lg-3">
+            <span class="text-muted-c mono" style="font-size:0.8rem;">
+              <span class="status-dot"></span>
+              <span id="nav-user-name">Agent</span>
+            </span>
+          </li>
+          <li class="nav-item">
+            <button class="btn-cyber-outline" id="nav-logout" style="font-size:0.78rem;padding:0.4rem 0.9rem;">
+              ⏻ Logout
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container position-relative" style="z-index:1;">
+
+    <!-- Header -->
+    <div class="page-header">
+      <p class="mono text-muted-c" style="font-size:0.8rem;letter-spacing:2px;margin-bottom:0.3rem;">
+        ▶ CONTROL CENTER
+      </p>
+      <h2 id="dash-greeting">Welcome back, Agent</h2>
+      <div class="header-line"></div>
+      <p>Monitor threats, analyze suspicious content, and test your cyber knowledge.</p>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="row g-3 mb-5">
+      <div class="col-6 col-md-3">
+        <div class="stat-bar">
+          <div>
+            <div class="stat-num text-cyber">🛡</div>
+          </div>
+          <div>
+            <div class="stat-label">AI Detection</div>
+            <div class="mono text-safe" style="font-size:0.75rem;">Active</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-bar">
+          <div>
+            <div class="stat-num">🔍</div>
+          </div>
+          <div>
+            <div class="stat-label">Threat DB</div>
+            <div class="mono text-cyber" style="font-size:0.75rem;">Online</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-bar">
+          <div>
+            <div class="stat-num">📊</div>
+          </div>
+          <div>
+            <div class="stat-label">Quiz</div>
+            <div class="mono text-warn" style="font-size:0.75rem;">Ready</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-bar">
+          <div>
+            <div class="stat-num">⚡</div>
+          </div>
+          <div>
+            <div class="stat-label">System</div>
+            <div class="mono text-safe" style="font-size:0.75rem;">Secured</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Action Cards -->
+    <div class="row g-4 mb-5">
+
+      <div class="col-md-4">
+        <a href="detect.html" class="dash-card">
+          <span class="dash-icon" style="color:#00d4ff;">🔬</span>
+          <h4 style="color:var(--accent-blue);">Threat Detection</h4>
+          <p>Analyze URLs and messages using AI to detect phishing, malware, and cyber threats instantly.</p>
+          <div class="mt-3">
+            <span class="cyber-badge">AI Powered</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-md-4">
+        <a href="threat.html" class="dash-card">
+          <span class="dash-icon" style="color:#ff2d55;">⚠</span>
+          <h4 style="color:var(--accent-red);">View Threats</h4>
+          <p>Browse our live database of known cyber threats, attack vectors, and prevention strategies.</p>
+          <div class="mt-3">
+            <span class="cyber-badge" style="color:var(--accent-red);border-color:rgba(255,45,85,0.3);background:rgba(255,45,85,0.08);">Live Database</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-md-4">
+        <a href="quiz.html" class="dash-card">
+          <span class="dash-icon" style="color:#ffcc00;">🎯</span>
+          <h4 style="color:var(--accent-yellow);">Security Quiz</h4>
+          <p>Test your cybersecurity knowledge with MCQs and track your awareness score.</p>
+          <div class="mt-3">
+            <span class="cyber-badge" style="color:var(--accent-yellow);border-color:rgba(255,204,0,0.3);background:rgba(255,204,0,0.08);">Interactive</span>
+          </div>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Info Banner -->
+    <div class="cyber-card" style="background:linear-gradient(135deg,rgba(0,212,255,0.05),rgba(0,68,170,0.08));border-color:rgba(0,212,255,0.2);">
+      <div class="row align-items-center g-3">
+        <div class="col-auto">
+          <span style="font-size:2rem;filter:drop-shadow(0 0 10px var(--accent-blue));">🌐</span>
+        </div>
+        <div class="col">
+          <h6 class="mono text-cyber" style="font-size:0.8rem;letter-spacing:1px;margin-bottom:0.3rem;">STAY VIGILANT</h6>
+          <p class="mb-0" style="font-size:0.88rem;color:var(--text-muted);">
+            Cyber threats evolve daily. Use the <strong style="color:var(--text-primary);">Threat Detection</strong> tool to scan suspicious links before clicking, and review the <strong style="color:var(--text-primary);">Threats Database</strong> regularly.
+          </p>
+        </div>
+        <div class="col-md-auto">
+          <a href="detect.html" class="btn-cyber-outline">
+            🔬 Start Scanning
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="cyber-footer">
+    <div class="container">
+      <span class="status-dot"></span> CTAP — Cyber Threat Awareness Portal &nbsp;|&nbsp; Stay Safe. Stay Informed.
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="Js/script.js"></script>
+</body>
+</html>
