@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CTAP — File Scanner</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+  <!-- Shared portal fonts & base styles -->
+  <link rel="stylesheet" href="style.css" />
+  <!-- File scanner specific styles -->
+  <link rel="stylesheet" href="filescanner.css" />
+
+  <!-- Bootstrap 5 (matching other portal pages) -->
+
+</head>
+<body data-page="filescanner">
+
+  <!-- ═══════════════════════════════════════════
+       NAVBAR  (identical structure to other pages)
+  ════════════════════════════════════════════ -->
+  <nav class="cyber-nav navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="dashboard.html">🛡 CT<span>AP</span></a>
+
+      <button
+        class="navbar-toggler border-0"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#nav-menu"
+        aria-controls="nav-menu"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span style="color:var(--accent-blue);font-size:1.4rem;">☰</span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="nav-menu">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+          <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="detect.html">Detect</a></li>
+          <li class="nav-item"><a class="nav-link" href="threat.html">Threats</a></li>
+          <li class="nav-item"><a class="nav-link" href="quiz.html">Quiz</a></li>
+          <li class="nav-item"><a class="nav-link active" href="filescanner.html">File Scanner</a></li>
+          <li class="nav-item ms-lg-3">
+            <span class="text-muted-c mono" style="font-size:0.8rem;">
+              <span class="status-dot"></span>
+              <span id="nav-user-name">Agent</span>
+            </span>
+          </li>
+          <li class="nav-item">
+            <button class="btn-cyber-outline" id="nav-logout" style="font-size:0.78rem;padding:0.4rem 0.9rem;">
+              ⏻ Logout
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       MAIN CONTENT
+  ════════════════════════════════════════════ -->
+  <main class="container fs-main position-relative" style="z-index:1;">
+
+    <!-- Page header -->
+    <div class="page-header">
+      <p class="mono text-muted-c" style="font-size:0.8rem;letter-spacing:2px;margin-bottom:0.3rem;">
+        ▶ VIRUSTOTAL INTEGRATION
+      </p>
+      <h2>AI Malware <span>File Scanner</span></h2>
+      <div class="header-line"></div>
+      <p>Upload any file to check whether it contains malware using VirusTotal.</p>
+    </div>
+
+    <!-- ── Upload panel ─────────────────────── -->
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-xl-7">
+
+        <div class="fs-upload-card">
+
+          <!-- Drop zone -->
+          <div
+            id="fs-drop-zone"
+            class="fs-drop-zone"
+            role="button"
+            tabindex="0"
+            aria-label="File upload drop zone"
+          >
+            <!-- Hidden file input -->
+            <input
+              type="file"
+              id="fs-file-input"
+              class="fs-hidden-input"
+              accept=".pdf,.doc,.docx,.zip,.exe,.apk,.jpg,.jpeg,.png"
+              aria-hidden="true"
+            />
+
+            <!-- Empty state (shown by default) -->
+            <div id="fs-empty-state" class="fs-empty-state">
+              <div class="fs-drop-icon-wrap">
+                <span class="fs-drop-icon">📁</span>
+              </div>
+              <p class="fs-drop-title">Drag &amp; Drop your file here</p>
+              <p class="fs-drop-or">— or —</p>
+              <button type="button" class="fs-browse-btn" id="fs-browse-btn">
+                Browse File
+              </button>
+              <p class="fs-drop-hint">
+                PDF · DOC · DOCX · ZIP · EXE · APK · JPG · PNG
+                &nbsp;·&nbsp; Max 32 MB
+              </p>
+            </div>
+
+            <!-- File selected state (hidden until file picked) -->
+            <div id="fs-file-chosen" class="fs-file-chosen" style="display:none;">
+              <div class="fs-file-thumb">
+                <span id="fs-file-ext-icon">📄</span>
+              </div>
+              <div class="fs-file-meta">
+                <p id="fs-file-name" class="fs-file-name">filename.pdf</p>
+                <p id="fs-file-size" class="fs-file-size">0 KB</p>
+              </div>
+              <button type="button" class="fs-remove-btn" id="fs-remove-btn" title="Remove file">✕</button>
+            </div>
+          </div>
+
+          <!-- Validation message -->
+          <div id="fs-validation-msg" class="fs-validation-msg" role="alert" aria-live="polite"></div>
+
+          <!-- Progress bar (hidden until scanning) -->
+          <div id="fs-progress-wrap" class="fs-progress-wrap" style="display:none;">
+            <div class="fs-progress-bar">
+              <div id="fs-progress-fill" class="fs-progress-fill"></div>
+            </div>
+            <span id="fs-progress-label" class="fs-progress-label mono">Uploading…</span>
+          </div>
+
+          <!-- Action buttons -->
+          <div class="fs-action-row">
+            <button
+              type="button"
+              class="fs-scan-btn"
+              id="fs-scan-btn"
+              disabled
+              aria-disabled="true"
+            >
+              <span class="fs-btn-icon">⚡</span>
+              <span class="fs-btn-text">Scan File</span>
+              <!-- Inline spinner (hidden until scanning) -->
+              <span id="fs-btn-spinner" class="fs-btn-spinner" style="display:none;"></span>
+            </button>
+
+            <button type="button" class="fs-clear-btn" id="fs-clear-btn" disabled>
+              ✕ Clear
+            </button>
+          </div>
+
+        </div><!-- /fs-upload-card -->
+
+        <!-- ── Loading overlay card ─────────── -->
+        <div id="fs-loading-card" class="fs-loading-card" style="display:none;" aria-live="polite">
+          <div class="fs-scan-ring">
+            <div class="fs-scan-ring-inner"></div>
+            <span class="fs-scan-ring-icon">🔬</span>
+          </div>
+          <p class="fs-loading-title">Scanning your file…</p>
+          <p class="fs-loading-sub">VirusTotal is analyzing with 70+ antivirus engines.</p>
+          <div class="fs-loading-dots">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════
+             RESULT CARD  (injected by JS)
+        ══════════════════════════════════════ -->
+        <div id="fs-result-area" aria-live="polite"></div>
+
+      </div><!-- /col -->
+    </div><!-- /row -->
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════ -->
+  <footer class="cyber-footer">
+    <div class="container">
+      <span class="status-dot"></span>
+      CTAP — Cyber Threat Awareness Portal &nbsp;|&nbsp; File Scanner powered by VirusTotal
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Shared portal script (auth guard, logout, navbar) -->
+  <script src="Js/script.js"></script>
+  <!-- File scanner logic -->
+  <script src="Js/filescanner.js"></script>
+</body>
+</html>

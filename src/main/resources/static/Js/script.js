@@ -457,3 +457,57 @@ document.addEventListener('DOMContentLoaded', () => {
     loadQuiz();
   }
 });
+
+/* ==========================================
+   FILE SCANNER
+========================================== */
+
+async function scanFile() {
+
+    const fileInput = document.getElementById("fileInput");
+
+    if (!fileInput || fileInput.files.length === 0) {
+        alert("Please select a file.");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", fileInput.files[0]);
+
+    try {
+
+        const response = await fetch("http://localhost:8080/api/filescanner/scan", {
+            method: "POST",
+            body: formData
+        });
+
+        const result = await response.json();
+
+        console.log(result);
+
+        if (result.safe) {
+
+            document.getElementById("scanStatus").innerHTML = "SAFE";
+            document.getElementById("scanMessage").innerHTML = result.message;
+            document.getElementById("malicious").innerHTML = result.malicious;
+            document.getElementById("suspicious").innerHTML = result.suspicious;
+
+        } else {
+
+            document.getElementById("scanStatus").innerHTML = "DANGEROUS";
+            document.getElementById("scanMessage").innerHTML = result.message;
+            document.getElementById("malicious").innerHTML = result.malicious;
+            document.getElementById("suspicious").innerHTML = result.suspicious;
+
+        }
+
+    }
+    catch(error){
+
+        console.log(error);
+
+        alert("Unable to scan file");
+
+    }
+
+}

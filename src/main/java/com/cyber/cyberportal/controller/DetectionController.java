@@ -2,7 +2,9 @@ package com.cyber.cyberportal.controller;
 
 import com.cyber.cyberportal.service.DatasetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,4 +34,11 @@ public class DetectionController {
 
         return response;
     }
+    @PostMapping("/file")
+    public ResponseEntity<?> scanFile(
+            @RequestParam("file") MultipartFile file){
+
+        return ResponseEntity.ok("Received : " + file.getOriginalFilename());
+    }
 }
+
